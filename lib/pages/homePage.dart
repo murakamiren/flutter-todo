@@ -44,8 +44,11 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => AddTodoPage())),
+        onPressed: () async {
+          final String title = await Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => AddTodoPage()));
+          _addTodo(title);
+        },
         tooltip: "add todo",
         child: const Icon(Icons.add),
       ),

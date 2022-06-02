@@ -5,7 +5,7 @@ import 'package:flutter_todo/pages/addTodoPage.dart';
 
 class TodoClass {
   String title;
-  IconData? icon;
+  IconData icon;
 
   TodoClass(this.title, this.icon);
 }

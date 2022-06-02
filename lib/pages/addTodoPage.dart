@@ -38,17 +38,23 @@ class _AddTodoPageState extends State<AddTodoPage> {
             TextField(
               onChanged: (String text) => _title = text,
             ),
-            Icon(
-              _icon,
-              size: 40,
-            ),
+            _icon == null
+                ? const Text("アイコンを選択してください")
+                : Icon(
+                    _icon,
+                    size: 40,
+                  ),
             ElevatedButton(
               onPressed: () => _pickIcon(),
               child: const Text("アイコン選択"),
             ),
             ElevatedButton(
-                onPressed: () =>
-                    Navigator.pop(context, TodoClass(_title, _icon)),
+                onPressed: () => {
+                      if (_icon != null && _title != "")
+                        {
+                          Navigator.pop(context, TodoClass(_title, _icon!)),
+                        }
+                    },
                 child: const Text("追加する"))
           ],
         ),

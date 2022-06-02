@@ -60,20 +60,21 @@ class _HomePageState extends State<HomePage> {
                 trailing: IconButton(
                   icon: const Icon(Icons.more_vert_rounded),
                   onPressed: () => showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                            title: Text(_todoItems[index].title),
-                            actions: [
-                              IconButton(
-                                onPressed: () {
-                                  _deleteTodo(index);
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(Icons.delete),
-                                color: Colors.deepOrange,
-                              )
-                            ],
-                          )),
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: Text(_todoItems[index].title),
+                      actions: [
+                        IconButton(
+                          onPressed: () {
+                            _deleteTodo(index);
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.delete),
+                          color: Colors.deepOrange,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -82,8 +83,8 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final String? title = await Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => AddTodoPage()));
+          final String? title = await Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const AddTodoPage()));
           if (title != null && title != "")
             _addTodo(TodoClass(title, Icons.add));
         },

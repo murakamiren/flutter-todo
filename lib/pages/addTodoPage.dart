@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_iconpicker/flutter_iconpicker.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({Key? key}) : super(key: key);
@@ -10,25 +11,46 @@ class AddTodoPage extends StatefulWidget {
 }
 
 class _AddTodoPageState extends State<AddTodoPage> {
+  // input value
   String _title = "";
+
+  // icon picker
+  IconData? _icon;
+
+  // icon pick function
+  void _pickIcon() async {
+    final icon = await FlutterIconPicker.showIconPicker(context);
+    setState(() {
+      _icon = icon;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("add todo")),
       body: Center(
-          child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text("タスクを入力してください"),
-          TextField(
-            onChanged: (String text) => _title = text,
-          ),
-          ElevatedButton(
-              onPressed: () => Navigator.pop(context, _title),
-              child: const Text("追加する"))
-        ],
-      )),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text("タスクを入力してください"),
+            TextField(
+              onChanged: (String text) => _title = text,
+            ),
+            Icon(
+              _icon,
+              size: 40,
+            ),
+            ElevatedButton(
+              onPressed: () => _pickIcon(),
+              child: const Text("アイコン選択"),
+            ),
+            ElevatedButton(
+                onPressed: () => Navigator.pop(context, _title),
+                child: const Text("追加する"))
+          ],
+        ),
+      ),
     );
   }
 }

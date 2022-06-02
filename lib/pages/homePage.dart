@@ -3,6 +3,13 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_todo/pages/addTodoPage.dart';
 
+class TodoClass {
+  String title;
+  IconData icon;
+
+  TodoClass(this.title, this.icon);
+}
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -11,11 +18,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<String> _todoItems = ["英語の課題", "牛乳を買う", "flutterを触る", "テスト"];
+  final List<TodoClass> _todoItems = [
+    TodoClass("テストです", Icons.note_rounded),
+    TodoClass("flutterなう", Icons.now_wallpaper)
+  ];
 
-  void _addTodo(String title) {
+  // add todo function
+  void _addTodo(TodoClass todo) {
     setState(() {
-      _todoItems.add(title);
+      _todoItems.add(todo);
+    });
+  }
+
+  // del todo function
+  void _deleteTodo(int index) {
+    setState(() {
+      _todoItems.removeAt(index);
     });
   }
 
@@ -33,10 +51,29 @@ class _HomePageState extends State<HomePage> {
             margin: const EdgeInsets.only(bottom: 8),
             child: Card(
               child: ListTile(
-                title: Text(_todoItems[index]),
+                leading: Icon(
+                  _todoItems[index].icon,
+                  size: 30,
+                  color: Colors.cyan,
+                ),
+                title: Text(_todoItems[index].title),
                 trailing: IconButton(
                   icon: const Icon(Icons.more_vert_rounded),
-                  onPressed: () {},
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: Text(_todoItems[index].title),
+                            actions: [
+                              IconButton(
+                                onPressed: () {
+                                  _deleteTodo(index);
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(Icons.delete),
+                                color: Colors.deepOrange,
+                              )
+                            ],
+                          )),
                 ),
               ),
             ),
@@ -47,7 +84,8 @@ class _HomePageState extends State<HomePage> {
         onPressed: () async {
           final String? title = await Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => AddTodoPage()));
-          if (title != null && title != "") _addTodo(title);
+          if (title != null && title != "")
+            _addTodo(TodoClass(title, Icons.add));
         },
         tooltip: "add todo",
         child: const Icon(Icons.add),

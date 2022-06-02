@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_iconpicker/flutter_iconpicker.dart';
+import 'package:flutter_todo/pages/homePage.dart';
 
 class AddTodoPage extends StatefulWidget {
   const AddTodoPage({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
 
   // icon pick function
   void _pickIcon() async {
-    final icon = await FlutterIconPicker.showIconPicker(context);
+    IconData? icon = await FlutterIconPicker.showIconPicker(context);
     setState(() {
       _icon = icon;
     });
@@ -46,7 +47,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
               child: const Text("アイコン選択"),
             ),
             ElevatedButton(
-                onPressed: () => Navigator.pop(context, _title),
+                onPressed: () =>
+                    Navigator.pop(context, TodoClass(_title, _icon)),
                 child: const Text("追加する"))
           ],
         ),

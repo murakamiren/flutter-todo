@@ -5,7 +5,7 @@ import 'package:flutter_todo/pages/addTodoPage.dart';
 
 class TodoClass {
   String title;
-  IconData icon;
+  IconData? icon;
 
   TodoClass(this.title, this.icon);
 }
@@ -83,10 +83,9 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final String? title = await Navigator.of(context).push(
+          final TodoClass? todo = await Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const AddTodoPage()));
-          if (title != null && title != "")
-            _addTodo(TodoClass(title, Icons.add));
+          if (todo != null) _addTodo(todo);
         },
         tooltip: "add todo",
         child: const Icon(Icons.add),

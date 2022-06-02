@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("hello flutter"),
+        title: const Text("hello flutter"),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 10),

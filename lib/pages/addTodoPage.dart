@@ -29,7 +29,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("add todo")),
+      appBar: AppBar(title: const Text("add todo")),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -39,7 +39,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
               onChanged: (String text) => _title = text,
             ),
             _icon == null
-                ? const Text("アイコンを選択してください")
+                ? const Text("アイコンが選択されていません")
                 : Icon(
                     _icon,
                     size: 40,
